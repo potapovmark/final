@@ -44,10 +44,8 @@
     overflow: visible;
     width: 240px;
     height: 200px;
-
-    @media (min-width: $screen-lg) {
-      display: none;
-    }
+    margin-left: 0;
+    padding-left: 0;
   }
 
   &__card {
@@ -224,8 +222,9 @@
     text-decoration: none;
   }
 
-  .swiper-pagination {
-    display: none;
+  .swiper {
+    position: relative;
+    height: 250px;
   }
 
   .swiper-wrapper {
@@ -233,5 +232,34 @@
     height: 160px;
     overflow: visible;
     cursor: grab;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .swiper-slide {
+    width: 240px;
+    margin-right: 16px;
+    flex-shrink: 0;
+  }
+
+  .swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
+    position: absolute;
+    top: 220px;
+    left: 50vw;
+    transform: translateX(-50%);
+    padding-left: 0px;
+  }
+
+  .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background-color: #b5b6bc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &-active {
+      background-color: #444;
+    }
   }
 }

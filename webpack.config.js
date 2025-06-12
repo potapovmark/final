@@ -1,22 +1,21 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   // Entry file
-  entry: [
-    './src/js/index.js'
-  ],
+  entry: ['./src/js/index.js'],
 
   // Output file
   output: {
     filename: './js/bundle.js',
-    path: path.resolve(__dirname, 'dist') // Add output path
+    path: path.resolve(__dirname, 'dist'), // Add output path
+    publicPath: '/final/' // Добавляем базовый путь для GitHub Pages
   },
 
   // Source maps for easier debugging
-  devtool: "source-map",
+  devtool: 'source-map',
 
   module: {
     rules: [
@@ -28,7 +27,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
+            presets: ['@babel/preset-env']
           }
         }
       },
@@ -40,17 +39,14 @@ module.exports = {
           MiniCssExtractPlugin.loader, // Extract css to separate file
           'css-loader', // translates CSS into CommonJS
           'postcss-loader', // parse CSS and add vendor prefixes to CSS rules
-          'sass-loader', // compiles Sass to CSS, using Node Sass by default
-        ],
+          'sass-loader' // compiles Sass to CSS, using Node Sass by default
+        ]
       },
 
       // Compile CSS to CSS
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader'
-        ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
 
       // Include fonts from css
@@ -69,24 +65,25 @@ module.exports = {
         generator: {
           filename: 'static/[name][ext]'
         }
-      },
-    ],
+      }
+    ]
   },
   plugins: [
     // Include html file, styles and scripts will be automatically injected
     new HtmlWebpackPlugin({
-      title: 'Webpack 5 Starter',
+      title: 'CPS',
       template: './src/index.html',
       inject: true,
       minify: {
         removeComments: true,
-        collapseWhitespace: false,
-      }
+        collapseWhitespace: false
+      },
+      publicPath: '/final/' // Добавляем базовый путь для GitHub Pages
     }),
 
     // Extract styles to a separate file
     new MiniCssExtractPlugin({
-      filename: 'style.css',
+      filename: 'style.css'
     }),
 
     // Copy images
@@ -94,8 +91,8 @@ module.exports = {
       patterns: [
         {
           from: './src/img',
-          to: 'img',
-        },
+          to: 'img'
+        }
       ]
     })
   ],
@@ -105,10 +102,10 @@ module.exports = {
     port: 9000,
     hot: true, // Enable Hot Module Replacement
     watchFiles: {
-      paths: ['src/**/*'], // Watch for changes in source files
+      paths: ['src/**/*'] // Watch for changes in source files
     },
     client: {
       overlay: true // Show errors and warnings in the browser
     }
-  },
-};
+  }
+}
